@@ -22,7 +22,7 @@ const ui = {
 const res = document.getElementById('res');
 
 const APPROVAL_GRADE = 6;
-const RAW_APPROVAL_BY_ROUNDING = 5.5;
+const RAW_APPROVAL_BY_ROUNDING = 5.75;
 const GRADUATION_VS_MINIMUM = 4;
 
 function getMode() {
@@ -75,7 +75,7 @@ function graduationFinalGrade(regularAverage, vs) {
 }
 
 function schoolSigaaGrade(grade) {
-    return Math.ceil(grade * 2) / 2;
+    return Math.round(grade * 2) / 2;
 }
 
 function schoolApprovalTarget(considerRounding) {
@@ -103,6 +103,24 @@ function formatGrade(value) {
         minimumFractionDigits: 1,
         maximumFractionDigits: 1
     });
+}
+
+function formatExactGrade(value) {
+    const roundedToOneDecimal = Number(value.toFixed(1));
+
+    if (Math.abs(value - roundedToOneDecimal) < 0.0001) {
+        return formatGrade(value);
+    }
+
+    return value.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+function formatNeededGrade(value) {
+    const safeValue = Math.ceil((value - 0.0001) * 10) / 10;
+    return formatGrade(safeValue);
 }
 
 function setResult(message, type = 'neutral') {
@@ -149,7 +167,7 @@ function calculateSchool() {
         const neededMv2 = gradeNeededForMv2(consideredMv1, considerRounding);
         const message = neededMv2 > 10
             ? `Sua média do G1 ficou ${formatGrade(consideredMv1)}. Mesmo com 10,0 no G2, não fecha 6,0.`
-            : `Sua média do G1 ficou ${formatGrade(consideredMv1)}. Você precisa tirar ${formatGrade(Math.max(0, neededMv2))} no G2 para passar.`;
+            : `Sua média do G1 ficou ${formatGrade(consideredMv1)}. Você precisa tirar ${formatNeededGrade(Math.max(0, neededMv2))} no G2 para passar.`;
 
         setResult(`${message}${appendWarnings(warnings)}`, neededMv2 > 10 ? 'danger' : 'neutral');
         return;
@@ -158,8 +176,8 @@ function calculateSchool() {
     const g2 = schoolRegularGrade(consideredMv1, mv2);
     const finalRegular = schoolDisplayedFinalGrade(g2, considerRounding);
     const regularLines = [
-        line('Média calculada', formatGrade(g2)),
-        line(considerRounding ? 'Média final no SIGAA' : 'Média final', formatGrade(finalRegular))
+        line('Média calculada', formatExactGrade(g2)),
+        line(considerRounding ? 'Média final no SIGAA' : 'Média final', considerRounding ? formatGrade(finalRegular) : formatExactGrade(finalRegular))
     ];
 
     if (finalRegular >= APPROVAL_GRADE) {
@@ -171,7 +189,7 @@ function calculateSchool() {
         const neededMvr = schoolFinalRecoveryNeeded(g2, considerRounding);
         const message = neededMvr > 10
             ? `${regularLines.join('')}<p>Mesmo com 10,0 na recuperação final, não fecha 6,0.</p>`
-            : `${regularLines.join('')}<p>Você precisa tirar ${formatGrade(Math.max(0, neededMvr))} na recuperação final para passar.</p>`;
+            : `${regularLines.join('')}<p>Você precisa tirar ${formatNeededGrade(Math.max(0, neededMvr))} na recuperação final para passar.</p>`;
 
         setResult(`${message}${appendWarnings(warnings)}`, neededMvr > 10 ? 'danger' : 'warning');
         return;
@@ -180,8 +198,8 @@ function calculateSchool() {
     const gf = schoolFinalGrade(g2, mvr);
     const finalGradeValue = schoolDisplayedFinalGrade(gf, considerRounding);
     const finalLines = [
-        line('Média calculada', formatGrade(gf)),
-        line(considerRounding ? 'Média final no SIGAA' : 'Média final', formatGrade(finalGradeValue))
+        line('Média calculada', formatExactGrade(gf)),
+        line(considerRounding ? 'Média final no SIGAA' : 'Média final', formatExactGrade(finalGradeValue))
     ];
 
     if (finalGradeValue >= APPROVAL_GRADE) {
@@ -213,7 +231,7 @@ function calculateGraduation() {
         const neededVs = graduationVsNeeded(regularAverage);
         const message = neededVs > 10
             ? `${regularLines.join('')}<p>Mesmo com 10,0 na VS, não fecha 6,0.</p>`
-            : `${regularLines.join('')}<p>Você precisa tirar ${formatGrade(Math.max(0, neededVs))} na VS para passar.</p>`;
+            : `${regularLines.join('')}<p>Você precisa tirar ${formatNeededGrade(Math.max(0, neededVs))} na VS para passar.</p>`;
 
         setResult(message, neededVs > 10 ? 'danger' : 'warning');
         return;

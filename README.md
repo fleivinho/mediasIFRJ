@@ -28,7 +28,7 @@ G1 = (MV1 + 1,5 * MVRP) / 2,5
 
 Por padrão, a aplicação não considera arredondamento no Ensino Médio/Técnico. Ela mira 6,0 real para indicar uma aprovação mais segura, por exemplo: G1 6,0 e G2 6,0.
 
-Existe uma opção chamada "Considerar possível arredondamento SIGAA". Quando marcada, a calculadora considera o arredondamento observado em alguns casos do SIGAA, em passos de 0,5 para cima. Por exemplo: 9,33 aparece como 9,5, e 5,6 aparece como 6,0.
+Existe uma opção chamada "Considerar possível arredondamento SIGAA". Quando marcada, a calculadora considera o arredondamento para o meio ponto mais próximo. Por exemplo: 9,33 aparece como 9,5, mas uma média abaixo de 5,75 ainda cai para 5,5.
 
 ### Graduação
 
