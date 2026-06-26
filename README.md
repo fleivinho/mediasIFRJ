@@ -2,6 +2,14 @@
 
 Calculadora simples para notas do IFRJ. Ela calcula notas do Ensino Médio/Técnico e da Graduação com base no PDF oficial de notas e frequências, mostrando também a média final no SIGAA.
 
+## Objetivo
+
+Este projeto é um fork do [mediasIFRJ](https://fonsmat.github.io/mediasIFRJ/), ferramenta muito utilizada pelos alunos do meu campus para calcular médias escolares.
+
+A versão original possui alguns erros nos cálculos, especialmente em casos de recuperação. Por isso, este fork tem como objetivo corrigir esses problemas, melhorar a precisão dos resultados e adicionar suporte para alunos da graduação.
+
+Após realizar as correções e melhorias, divulguei a ferramenta para os alunos do meu campus, com o objetivo de facilitar o acompanhamento das notas e oferecer uma alternativa mais confiável para o cálculo das médias.
+
 ## Como funciona?
 
 O período letivo é dividido em semestres, denominados períodos. Cada período tem dois bimestres: o primeiro é chamado de MV1, e o segundo de MV2.
