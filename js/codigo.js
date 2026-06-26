@@ -106,16 +106,8 @@ function formatGrade(value) {
 }
 
 function formatExactGrade(value) {
-    const roundedToOneDecimal = Number(value.toFixed(1));
-
-    if (Math.abs(value - roundedToOneDecimal) < 0.0001) {
-        return formatGrade(value);
-    }
-
-    return value.toLocaleString('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    });
+    const truncated = Math.trunc((value + 0.0001) * 10) / 10;
+    return formatGrade(truncated);
 }
 
 function formatNeededGrade(value) {
