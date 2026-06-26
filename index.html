@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Médias IFRJ</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body>
+    <header class="header">
+        <img src="img/if.png" alt="Logo do IFRJ" width="80" height="80" id="logo">
+        <div>
+            <p class="eyebrow">Calculadora de notas</p>
+            <h1>Médias IFRJ</h1>
+        </div>
+    </header>
+
+    <main class="corpo">
+        <section class="intro" aria-labelledby="titulo-formulario">
+            <h2 id="titulo-formulario">Calcule sua média do período</h2>
+            <p id="intro-text">Preencha as médias do G1 e G2. Por padrão, a calculadora mira 6,0 real para garantir
+                aprovação.</p>
+            <a target="_blank"
+                href="https://portal.ifrj.edu.br/sites/default/files/IFRJ/Rio%20de%20Janeiro/Ensino/Alunos/notas_e_frequencias.pdf">Conferir
+                PDF oficial publicado pela IFRJ sobre o funcionamento das médias.</a>
+            <hr>
+        </section>
+
+        <form id="grade-form" class="grade-form">
+            <fieldset class="mode-selector" aria-label="Modalidade de ensino">
+                <legend>Modalidade</legend>
+
+                <label class="mode-option">
+                    <input type="radio" name="education-mode" value="school" checked>
+                    <span>Ensino médio</span>
+                </label>
+
+                <label class="mode-option">
+                    <input type="radio" name="education-mode" value="graduation">
+                    <span>Graduação</span>
+                </label>
+
+                <label class="check-option" id="rounding-option">
+                    <input type="checkbox" id="consider-rounding">
+                    <span>Considerar possível arredondamento SIGAA</span>
+                </label>
+            </fieldset>
+
+            <fieldset id="first-fieldset">
+                <legend id="first-legend">Primeiro bimestre (G1)</legend>
+
+                <div class="field-row" id="grade1-row">
+                    <label for="lblg1" id="grade1-label">Média</label>
+                    <input type="number" name="g1" id="lblg1" min="0" max="10" step="0.1" inputmode="decimal"
+                        placeholder="0,0 a 10,0" required>
+                </div>
+
+                <div class="field-row" id="recovery1-row">
+                    <label for="lblr1" id="recovery1-label">Recuperação paralela do MV1 (MVRP)</label>
+                    <input type="number" name="rec1" id="lblr1" min="0" max="10" step="0.1" inputmode="decimal"
+                        placeholder="Opcional">
+                </div>
+            </fieldset>
+
+            <fieldset id="second-fieldset">
+                <legend id="second-legend">Segundo bimestre (G2)</legend>
+
+                <div class="field-row" id="grade2-row">
+                    <label for="lblg2" id="grade2-label">Média</label>
+                    <input type="number" name="g2" id="lblg2" min="0" max="10" step="0.1" inputmode="decimal"
+                        placeholder="0,0 a 10,0">
+                </div>
+
+                <div class="field-row" id="recovery2-row">
+                    <label for="lblr2" id="recovery2-label">Recuperação final (MVR)</label>
+                    <input type="number" name="rec2" id="lblr2" min="0" max="10" step="0.1" inputmode="decimal"
+                        placeholder="Se precisar">
+                </div>
+            </fieldset>
+
+            <button type="submit" id="btn">Calcular</button>
+        </form>
+
+        <div id="res" class="result result--neutral" aria-live="polite">
+            Informe suas notas para ver o resultado.
+        </div>
+    </main>
+
+    <footer class="credits">
+        <p>Projeto original por <a target="_blank" href="https://github.com/FonsMat">Matheus Fonseca</a>, aluno do
+            IFRJ-CPar, 2020.1.
+        </p>
+        <p>Adaptação e correções com assistência de I.A. realizadas pelo aluno <a target="_blank"
+                href="https://github.com/fleivinho">Flávio Soares</a>,
+            aluno do IFRJ - Campus Arraial do Cabo em 2026.</p>
+    </footer>
+
+    <script src="js/codigo.js"></script>
+</body>
+
+</html>
